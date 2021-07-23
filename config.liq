@@ -2,7 +2,7 @@ set("log.file.path", "/dev/null")
 set("log.stdout", true)
 set("server.telnet", false)
 set("osc.port",7777)
-set("harbor.bind_addr","0.0.0.0")
+set("harbor.bind_addrs",["0.0.0.0"])
 
 # tweak these values if you have lag, skipping, buffer underrun etc
 # set("frame.duration",0.04)
