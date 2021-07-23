@@ -42,4 +42,5 @@ RUN touch /config.liq; \
 
 COPY entrypoint.sh /entrypoint.sh
 COPY config.liq /config.liq.base
+EXPOSE 7777/tcp
 ENTRYPOINT ["user-entrypoint", "/entrypoint.sh"]
