@@ -1,6 +1,6 @@
 FROM ocaml/opam:debian-10 as builder
 
-ENV PACKAGES="taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 gstreamer lo.0.1.2 liquidsoap.1.4.4"
+ENV PACKAGES="taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate.0.1.5 opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 gstreamer lo.0.1.2 liquidsoap.1.4.4"
 
 RUN set -eux; \
     sudo sed -i 's/$/ non-free/' /etc/apt/sources.list; \
