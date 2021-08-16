@@ -35,7 +35,7 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*; \
     /app/liquidsoap --version
 
-COPY --from=hairyhenderson/gomplate:v3.8.0-slim /gomplate /bin/gomplate
+COPY --from=hairyhenderson/gomplate:alpine /bin/gomplate /bin/gomplate
 RUN touch /config.liq; \
     chmod 666 /config.liq
 
