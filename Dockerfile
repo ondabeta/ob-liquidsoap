@@ -1,6 +1,6 @@
 FROM ocaml/opam:debian-10 as builder
 
-ENV PACKAGES="taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate.0.1.5 opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 gstreamer lo.0.1.2 liquidsoap.1.4.4"
+ENV PACKAGES="taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate.0.1.5 opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 pulseaudio gstreamer lo.0.1.2 liquidsoap.1.4.4"
 
 RUN set -eux; \
     sudo sed -i 's/$/ non-free/' /etc/apt/sources.list; \
@@ -31,7 +31,7 @@ RUN set -eux; \
     sed -i 's/$/ non-free/' /etc/apt/sources.list; \
     apt-get update; \
     cat /app/depexts | xargs apt-get install -y --no-install-recommends; \
-    apt-get install -y --no-install-recommends gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
+    apt-get install -y --no-install-recommends gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-base gstreamer1.0-pulseaudio gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
     rm -rf /var/lib/apt/lists/*; \
     /app/liquidsoap --version
 
@@ -42,5 +42,6 @@ RUN touch /config.liq; \
 
 COPY entrypoint.sh /entrypoint.sh
 COPY config.liq /config.liq.base
+COPY pulse-client.conf /etc/pulse/client.conf
 EXPOSE 7777/tcp
 ENTRYPOINT ["user-entrypoint", "/entrypoint.sh"]
