@@ -8,7 +8,7 @@ RUN set -eux; \
     echo 'Package: *\nPin: release a=unstable\nPin-Priority: 100' >> /etc/apt/preferences; \
     apt-get update; \
     cat /app/depexts | xargs apt-get install -y --no-install-recommends; \
-    apt-get install -y --no-install-recommends gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-base gstreamer1.0-pulseaudio gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
+    apt-get install -y --no-install-recommends tap-plugins gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-base gstreamer1.0-pulseaudio gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
     apt-get -t unstable install -y swh-plugins;\
     rm -rf /var/lib/apt/lists/*; \
     /app/liquidsoap --version
