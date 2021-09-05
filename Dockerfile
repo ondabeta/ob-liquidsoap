@@ -9,7 +9,7 @@ RUN set -eux; \
     apt-get update; \
     cat /app/depexts | xargs apt-get install -y --no-install-recommends; \
     apt-get install -y --no-install-recommends gstreamer1.0-tools gstreamer1.0-libav gstreamer1.0-plugins-base gstreamer1.0-pulseaudio gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
-    apt-get -t unstable install swh-plugins;\
+    apt-get -t unstable install -y swh-plugins;\
     rm -rf /var/lib/apt/lists/*; \
     /app/liquidsoap --version
 
