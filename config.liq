@@ -13,25 +13,25 @@ live = mksafe(input.pulseaudio())
 mic = audio_to_stereo(input.harbor("mic",port=8801,password="{{.Env.ICECAST_SOURCE_PASSWORD}}",buffer=1.0))
 live = smooth_add(delay=0.1, p=0.2, normal=live, special=mic)
 
-#live = normalize(target = 0., window = 0.03, gain_min = -16., gain_max = 0., live)
-#live = compress.exponential(live, mu = 1.0)
+live = normalize(target = 0., window = 0.03, gain_min = -16., gain_max = 0., live)
+live = compress.exponential(live, mu = 1.0)
 
 ## Audio processing
 
-# Gate the input for starters, stops noise from clobbering things in silent periods.
-live = ladspa.gate(live, threshold = -60.0, attack = 0.15, hold = 1.0, decay = 200.0, range = -25.0)
-# Multiband compression - split up, compress, recombine, sky does it all, but is not very configurable. 3-band.
-live = sky(live)
-# Now overall compression, faster attack, harder ratio, mostly RMS based.
-live = compress(live, attack = 5.0, gain = 8.0, knee = 10.0, ratio = 5.0, release = 100.0, threshold = -18.0, window = 0.7)
-# Normalize, with a higher threshold to stop suck-up.
-live = normalize(live, target = -1.0, threshold = -65.0)
-# Limiter, this one's a scaling one which limits nicely and without artefacting mostly
-live = ladspa.tap_limiter(live, limit_level = -0.5)
-# And a final limiter - this should never really get hit, but stops anything nasty hitting the DAC. Highly peak-focused.
-live = limit(live, threshold = -0.2, attack = 2.0, release = 25.0, window = 0.02)
-# Stick a meter on this. This is queryable via telnet. Force the source name.
-# source = server.rms(source, id="input_source")
+# # Gate the input for starters, stops noise from clobbering things in silent periods.
+# live = ladspa.gate(live, threshold = -60.0, attack = 0.15, hold = 1.0, decay = 200.0, range = -25.0)
+# # Multiband compression - split up, compress, recombine, sky does it all, but is not very configurable. 3-band.
+# live = sky(live)
+# # Now overall compression, faster attack, harder ratio, mostly RMS based.
+# live = compress(live, attack = 5.0, gain = 8.0, knee = 10.0, ratio = 5.0, release = 100.0, threshold = -18.0, window = 0.7)
+# # Normalize, with a higher threshold to stop suck-up.
+# live = normalize(live, target = -1.0, threshold = -65.0)
+# # Limiter, this one's a scaling one which limits nicely and without artefacting mostly
+# live = ladspa.tap_limiter(live, limit_level = -0.5)
+# # And a final limiter - this should never really get hit, but stops anything nasty hitting the DAC. Highly peak-focused.
+# live = limit(live, threshold = -0.2, attack = 2.0, release = 25.0, window = 0.02)
+# # Stick a meter on this. This is queryable via telnet. Force the source name.
+# # source = server.rms(source, id="input_source")
 
 
 
