@@ -10,11 +10,11 @@ set("harbor.bind_addrs",["0.0.0.0"])
 
 
 live = mksafe(input.pulseaudio())
-mic = audio_to_stereo(input.harbor("mic",port=8801,password="{{.Env.ICECAST_SOURCE_PASSWORD}}",buffer=1.0))
-live_clean = smooth_add(delay=0.1, p=0.2, normal=live, special=mic)
+#mic = audio_to_stereo(input.harbor("mic",port=8801,password="{{.Env.ICECAST_SOURCE_PASSWORD}}",buffer=1.0))
+#live = smooth_add(delay=0.1, p=0.2, normal=live, special=mic)
 
-live = normalize(target = 0., window = 0.03, gain_min = -16., gain_max = 0., live_clean)
-live = compress.exponential(live, mu = 1.0)
+#live = normalize(target = 0., window = 0.03, gain_min = -16., gain_max = 0., live_clean)
+#live = compress.exponential(live, mu = 1.0)
 
 ## Audio processing
 
@@ -63,7 +63,7 @@ output.icecast(%mp3(bitrate=320), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICEC
 #output.icecast(%mp3(bitrate=128), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/oblow.mp3", live)
 output.icecast(%fdkaac(channels=2,samplerate=44100, bitrate=64, aot="mpeg4_he_aac_v2"), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/obhe.aac", live)
 output.icecast(%fdkaac(channels=2,samplerate=44100, bitrate=256, aot="mpeg4_aac_lc"), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ob.aac", live)
-output.icecast(%ogg(%flac(samplerate=44100, channels=2, bits_per_sample=16)), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ob.flac", live_clean)
+output.icecast(%ogg(%flac(samplerate=44100, channels=2, bits_per_sample=16)), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ob.flac", live)
 
 
 # aac_lofi = %ffmpeg(format="mpegts",
