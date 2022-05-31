@@ -60,10 +60,10 @@ osc.on_string_pair("/metadata",on_meta)
 
 
 output.icecast(%mp3(bitrate=320), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ondabeta.mp3", live)
-output.icecast(%mp3(bitrate=128), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/oblow.mp3", live)
+#output.icecast(%mp3(bitrate=128), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/oblow.mp3", live)
 output.icecast(%fdkaac(channels=2,samplerate=44100, bitrate=64, aot="mpeg4_he_aac_v2"), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/obhe.aac", live)
 output.icecast(%fdkaac(channels=2,samplerate=44100, bitrate=256, aot="mpeg4_aac_lc"), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ob.aac", live)
-
+output.icecast(%flac(samplerate=44100, channels=2, compression=5, bits_per_sample=16), host="{{.Env.ICECAST_HOST}}", port={{.Env.ICECAST_PORT}},  password="{{.Env.ICECAST_SOURCE_PASSWORD}}", mount="/ob.flac", live)
 
 
 # aac_lofi = %ffmpeg(format="mpegts",
