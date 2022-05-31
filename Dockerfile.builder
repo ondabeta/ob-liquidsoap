@@ -1,6 +1,6 @@
 FROM ocaml/opam:debian-10
 
-ENV PACKAGES="flac.0.3.0 ladspa.0.1.5 ogg.0.5.2 taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate.0.1.5 opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 pulseaudio gstreamer lo.0.1.2 liquidsoap.1.4.4"
+ENV PACKAGES="flac.0.1.7 ladspa.0.1.5 ogg.0.5.2 taglib mad.0.4.5 lame vorbis.0.7.1 cry samplerate.0.1.5 opus.0.1.3 fdkaac faad.0.4.0 ffmpeg.0.4.3 pulseaudio gstreamer lo.0.1.2 liquidsoap.1.4.4"
 
 
 
